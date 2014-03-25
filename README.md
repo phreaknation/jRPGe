@@ -45,69 +45,72 @@ Build RPG Engine
 
 Current Features
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Currently under heavy redesign so all current features have been shifted as there they will be rewritten in coffeescript.
+    Currently under heavy redesign so all current features have been shifted as there they will be rewritten in coffeescript.
 
 Planned Features
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Keyboard Inputs
-Character Animation
-Map Loading
-Tilesets
-Simple Collision Detection
-Step Counting
-Debugging
-Mouse Inputs
-Touch Imputs
-Backgrounds - Map Based
-Paralax Backgrounds - Map Based
-Simple Pathing
-Weighted Pathing
-Step Counting
-Global Events
-Triggered Events
-Character Loading
-TMX Map Loading
-Particles(?)
+    Keyboard Inputs
+    Character Animation
+    Map Loading
+    Tilesets
+    Simple Collision Detection
+    Step Counting
+    Debugging
+    Mouse Inputs
+    Touch Imputs
+    Backgrounds - Map Based
+    Paralax Backgrounds - Map Based
+    Simple Pathing
+    Weighted Pathing
+    Step Counting
+    Global Events
+    Triggered Events
+    Character Loading
+    TMX Map Loading
+    Particles(?)
+
 
 Current Tools
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TMX Map Converter
+    TMX Map Converter
+
 
 Planned Tools
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Character Generator(?)
-Resource Manager
+    Character Generator(?)
+    Resource Manager
 
-Database Manager
-  Actor Editor
-  Class Editor
-  Skill Editor
-  Items Editor
-  Weapons Editor
-  Armors Editor
-  Enemies Editor
-  Troops Editor
-  States Editor
-  Animations Editor
-  Tilesets Editor
-  Common Events Editor
-  System Editor
-  Phrase Editor
+    Database Manager
+      Actor Editor
+      Class Editor
+      Skill Editor
+      Items Editor
+      Weapons Editor
+      Armors Editor
+      Enemies Editor
+      Troops Editor
+      States Editor
+      Animations Editor
+      Tilesets Editor
+      Common Events Editor
+      System Editor
+      Phrase Editor
+
 
 Possible Tools
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Map Manager
-  Map Editor
-    Pens
-      Pencil
-      Rectangle
-      Circle
-      Fill
-      Shadow
-  Region Editor
-  Event Editor
-  Auto Tiling
-  Auto Shadows
-  Common Events Editor
-  System Editor
-  Terms Editor
+    Map Manager
+      Map Editor
+        Pens
+          Pencil
+          Rectangle
+          Circle
+          Fill
+          Shadow
+      Region Editor
+      Event Editor
+      Auto Tiling
+      Auto Shadows
+      Common Events Editor
+      System Editor
+      Terms Editor
