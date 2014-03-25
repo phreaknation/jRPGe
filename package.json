@@ -1,0 +1,16 @@
+{
+  "name": "rpgengine",
+  "version": "0.0.001",
+  "author": "Joel Dies",
+  "private": true,
+  "devDependencies": {
+    "gulp": "latest",
+    "gulp-clean": "latest",
+    "gulp-concat": "latest",
+    "gulp-rename": "latest",
+    "gulp-uglify": "latest",
+    "gulp-jshint": "latest",
+    "gulp-browserify": "latest",
+    "gulp-watch": "latest"
+  }
+}
