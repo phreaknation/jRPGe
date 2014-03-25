@@ -1,0 +1,55 @@
+{
+  "preferGlobal": false,
+  "analyze": true,
+  "name": "jrpge",
+  "title": "jRPG Engine",
+  "description": "Japanese Style RPG Engine made with Pixijs for the web browser",
+  "version": "0.0.001",
+  "main": "server/app.js",
+  "homepage": "",
+  "author": {
+    "name": "Joel Dies",
+    "url": "phreaknation@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "giturl"
+  },
+  "keywords": [
+    "html",
+    "html5",
+    "css",
+    "css3",
+    "javascript",
+    "canvas",
+    "webgl",
+    "astar",
+    "buzz",
+    "jquery",
+    "pixijs",
+    "tweenjs",
+    "game",
+    "rpg",
+    "example"
+  ],
+  "dependencies": {
+    "express": "latest",
+    "socket.io": "latest",
+    "jade": "latest",
+    "async": "latest"
+  },
+  "readmeFilename": "../README.md",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt",
+      "file": "../LICENSE"
+    }
+  ],
+  "engines": {
+    "node": "latest"
+  },
+  "scripts": {
+    "start": "node server/app.js"
+  }
+}
