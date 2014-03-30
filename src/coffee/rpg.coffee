@@ -1,43 +1,56 @@
 window.RPG = class RPG
-  constructor: (@options, @callback) ->
+  constructor:   ->
     self = this
-    # self.initialize(self).setOptions(@options)
-    # self.initialize(self).load()
-    self.scene().world()
 
-    callback()  if callback isnt `undefined` and typeof callback is "function"
+    # check to see if we already have RPG and return created object if we do
+    return window.RPG._instance  if window.RPG and window.RPG._instance
+    # create an instance of ourselves for future reference.
+    @._instance = self
+
     self
 
-  initialize: (@self) ->
-    rq = require("./core/initialize")
-    new rq(@self)
-  proc: ->
-    rq = require("./core/proc")
-    new rq()
-  render: ->
-    rq = require("./core/render")
-    new rq()
-  animate: ->
-    rq = require("./core/animate")
-    new rq()
-  scene: ->
-    rq = require("./objects/scene")
-    new rq()
-  entity: ->
-    rq = require("./objects/entity")
-    new rq()
-  io: ->
-    rq = require("./plugins/io")
-    new rq()
-  manager: ->
-    rq = require("./plugins/manager")
-    new rq()
-  ui: ->
-    rq = require("./plugins/ui")
-    new rq()
-  utilities: ->
-    rq = require("./plugins/utilities")
-    new rq()
+  # extend an object with another object
+  @extend = () ->
+    # need to shorten this method of checking for overwrite. Unsure with coffeescript atm
+    if typeof arguments[arguments.length-1] is 'boolean'
+      @overwrite = arguments[arguments.length-1]
+      delete arguments[arguments.length-1]
+
+    # set default returned object
+    primary = arguments[0]
+
+    # loop over each argument to write to primary
+    for index, obj of arguments
+      for key, func of obj
+        # overwrite keys
+        if @overwrite is true
+          primary[key] = obj[key]
+        # do not overwrite keys
+        else
+          # check to make sure key is not in primary
+          if primary.hasOwnProperty(key) isnt true
+            primary[key] = obj[key]
+    primary
+
+  # load and create an object from a module/plugin
+  @load = (module, args = null) ->
+    r = new module(args)
+    return r
+
+# Load Core Modules
+RPG::initialize = RPG.load require("./core/initialize"), RPG
+RPG::manager = RPG.load require("./core/manager")
+RPG::proc = RPG.load require("./core/proc")
+RPG::render = RPG.load require("./core/render")
+RPG::animate = RPG.load require("./core/animate")
+# Load Plugin Modules
+RPG::utilities = RPG.load require("./modules/utilities")
+RPG::setup = RPG.load require("./modules/setup")
+RPG::io = RPG.load require("./modules/io")
+RPG::ui = RPG.load require("./modules/ui")
+RPG::scene = RPG.load require("./modules/scene")
+RPG::entity = RPG.load require("./modules/entity")
+RPG::manager = RPG.extend RPG::manager, RPG.load(require("./modules/manager"))
 
 # plugins
 # RPG::io = require("./plugins/io")
