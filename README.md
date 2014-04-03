@@ -37,77 +37,77 @@ Build RPG Engine
 > gulp watch
 
 ### Include into you game
-## minified
+#### minified
 > <script src="path/to/rpg.min.js"></script>
 ## development
 > <script src="path/to/rpg.dev.js"></script>
 
 
-Current Features
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Current Features
+---------------------------------------
 Currently under heavy redesign so all current features have been shifted as there they will be rewritten in coffeescript.
 
-Planned Features
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Keyboard Inputs
-Character Animation
-Map Loading
-Tilesets
-Simple Collision Detection
-Step Counting
-Debugging
-Mouse Inputs
-Touch Imputs
-Backgrounds - Map Based
-Paralax Backgrounds - Map Based
-Simple Pathing
-Weighted Pathing
-Step Counting
-Global Events
-Triggered Events
-Character Loading
-TMX Map Loading
-Particles(?)
 
-Current Tools
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TMX Map Converter
 
-Planned Tools
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Character Generator(?)
-Resource Manager
+### Planned Features
+---------------------------------------
+* Keyboard Inputs
+* Character Animation
+* Map Loading
+* Tilesets
+* Simple Collision Detection
+* Step Counting
+* Debugging
+* Mouse Inputs
+* Touch Imputs
+* Backgrounds - Map Based
+* Paralax Backgrounds - Map Based
+* Simple Pathing
+* Weighted Pathing
+* Step Counting
+* Global Events
+* Triggered Events
+* Character Loading
+* TMX Map Loading
+* Particles(?)
 
-Database Manager
-  Actor Editor
-  Class Editor
-  Skill Editor
-  Items Editor
-  Weapons Editor
-  Armors Editor
-  Enemies Editor
-  Troops Editor
-  States Editor
-  Animations Editor
-  Tilesets Editor
-  Common Events Editor
-  System Editor
-  Phrase Editor
+### Planned Tools
+---------------------------------------
+* Character
+* Resource Manager
+* TMX Map Converter
+* Database Manager
+ * Actor Editor
+ * Class Editor
+ * Skill Editor
+ * Items Editor
+ * Weapons Editor
+ * Armors Editor
+ * Enemies Editor
+ * Troops Editor
+ * States Editor
+ * Animations Editor
+ * Tilesets Editor
+ * Common Events Editor
+ * System Editor
+ * Phrase Editor
 
-Possible Tools
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Map Manager
-  Map Editor
-    Pens
-      Pencil
-      Rectangle
-      Circle
-      Fill
-      Shadow
-  Region Editor
-  Event Editor
-  Auto Tiling
-  Auto Shadows
-  Common Events Editor
-  System Editor
-  Terms Editor
+
+
+### Possible Tools
+---------------------------------------
+* Map Manager
+ * Map Editor
+   * Pens
+   * Pencil
+   * Rectangle
+   * Circle
+   * Fill
+   * Shadow
+* Region Editor
+* Event Editor
+* Auto Tiling
+* Auto Shadows
+* Common Events Editor
+* System Editor
+* Terms Editor
