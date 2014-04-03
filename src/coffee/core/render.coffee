@@ -5,7 +5,7 @@ class render
   render.map = (world, map, tileset) ->
     tileTexture = new PIXI.Texture.fromImage("/assets/resources/tilesets/" + map.general.tilesets[0].toLowerCase() + "/tileset.png")
     t = setInterval(->
-      if tileTexture.width isnt `undefined` and tileTexture.height isnt `undefined`
+      if tileTexture.width isnt undefined and tileTexture.height isnt undefined
         for y of map.data.floor
           row = map.data.floor[y].split(",")
           for x of row
@@ -17,8 +17,8 @@ class render
     return
 
   render.grid = (cellSpacing, map_size) ->
-    i = undefined
-    graphics = undefined
+    i = null
+    graphics = null
     width = (RPG.fn.convert.GridToPixel(map_size.x, true))
     height = (RPG.fn.convert.GridToPixel(map_size.y, true))
     i = 0
@@ -62,8 +62,8 @@ class render
       "bottom_center"
       "bottom_right"
     ]
-    tileset.tiles = {}  if tileset.tiles is `undefined`
-    tile = RPG.fn.load.tile(tileset, tileTexture, tileProperties, group_B)  if tileset.tiles[tileProperties.name] is `undefined`
+    tileset.tiles = {}  if tileset.tiles is undefined
+    tile = RPG.fn.load.tile(tileset, tileTexture, tileProperties, group_B)  if tileset.tiles[tileProperties.name] is undefined
     tileSprite = new PIXI.Sprite(tileset.tiles[tileProperties.name][group_B[b]])
     tileSprite.scale.x = RPG.fn.config.scaleFactor
     tileSprite.scale.y = RPG.fn.config.scaleFactor
@@ -92,7 +92,7 @@ class render
     parent = window.RPG.fn
     exists = false
     menu = null
-    i = undefined
+    i = null
     if typeof isVisible is "function"
       callback = isVisible
       isVisible = null
@@ -104,7 +104,7 @@ class render
           menu = child
       i = null
     if exists
-      if isVisible isnt `undefined` and isVisible is false
+      if isVisible isnt undefined and isVisible is false
         RPG.fn.ui.toggle.menu menu, false
       else
         RPG.fn.ui.toggle.menu menu, true
@@ -139,7 +139,7 @@ class render
     box = new PIXI.Graphics()
     box.beginFill parent.theme.backgroundColor
     box.lineStyle 5, parent.theme.borderColor
-    if location isnt `undefined` and location.length is 4
+    if location isnt undefined and location.length is 4
       box.position.x = location[0]
       box.position.y = location[1]
       box.drawRect 0, 0, location[2], location[3]

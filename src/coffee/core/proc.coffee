@@ -9,12 +9,12 @@ class proc
       dataType: "json"
       async: false
     ).done (data) ->
-      tileset = undefined
+      tileset = null
       RPG.fn.worlds[worldName].maps[data.general.name] = data
       RPG.fn.worlds[worldName].maps._current = data.general.name
       for tileset of data.general.tilesets
         RPG.fn.load.tileset data.general.tilesets[tileset], data.general.name, data.general.name
-      callback()  if callback isnt `undefined` and typeof callback is "function"
+      callback()  if callback isnt undefined and typeof callback is "function"
       return
 
     return
@@ -115,7 +115,7 @@ class proc
       url: "/assets/resources/" + file
       dataType: "json"
     ).done (data) ->
-      callback data  if callback isnt `undefined` and typeof callback is "function"
+      callback data  if callback isnt undefined and typeof callback is "function"
       return
     return
 module.exports = proc
