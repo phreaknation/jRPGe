@@ -1,62 +1,62 @@
 class initialize
   constructor: (@parent) ->
     self
-
-  setupControls: ->
-    # Should this be moved to the IO stuff to be  done when each one is included?
-    if initialize.parent.isMobile
-      initialize.upsert "keyboard", false, true
-      initialize.upsert "mouse", false, true
-      initialize.parent.proc().JSON "configs/touch", (data) ->
-        #initialize.parent.actions = data;
-        #initialize.parent.keyboard.initialize();
-        initialize.upsert "touch", true
-        return
-    else
-      initialize.upsert "touch", false, true
-      initialize.parent.proc().JSON "configs/keyboard", (data) ->
-        initialize.registry.register "actions", data
-        initialize.parent.keyboard.initialize()
-        return
-      if initialize.parent.isMouseEnabled
-        initialize.parent.proc().JSON "configs/mouse", (data) ->
-        return
-
-
-    #initialize.parent.actions = data;
-    #initialize.parent.keyboard.initialize();
-
-  setBaseOptions: (argument) ->
-    # Should this be done when the registry is loaded and the default settings are loaded in?
-    # load default settings
-    initialize.parent.proc().json "configs/base.json", (data) ->
-      @callback = (data) ->
-        initialize.registry.register "characters", data
-        count = initialize.get("characters")
-        count--
-        if count is 0
-          initialize.upsert "characters", true
-        else
-          initialize.upsert "characters", count
-        return
-      initialize.registry.register "defaults", data
-      initialize.upsert "defaultOptions", true
-      # initialize.upsert("characters", 0); character count
-      # load default characters
-      for i of data.characters
-        name = data.characters[i]
-        initialize.parent.proc().JSON "characters/" + name + "/character.json", @callback
-      return
-    return
-
-  checkLoading: (toCheck) ->
-    status = true
-    for i of toCheck
-      item = toCheck[i]
-      status = false  if item isnt true
-    status
 module.exports = initialize
 
+
+# setupControls: ->
+#   # Should this be moved to the IO stuff to be  done when each one is included?
+#   if initialize.parent.isMobile
+#     initialize.upsert "keyboard", false, true
+#     initialize.upsert "mouse", false, true
+#     initialize.parent.proc().JSON "configs/touch", (data) ->
+#       #initialize.parent.actions = data;
+#       #initialize.parent.keyboard.initialize();
+#       initialize.upsert "touch", true
+#       return
+#   else
+#     initialize.upsert "touch", false, true
+#     initialize.parent.proc().JSON "configs/keyboard", (data) ->
+#       initialize.registry.register "actions", data
+#       initialize.parent.keyboard.initialize()
+#       return
+#     if initialize.parent.isMouseEnabled
+#       initialize.parent.proc().JSON "configs/mouse", (data) ->
+#       return
+
+
+#   #initialize.parent.actions = data;
+#   #initialize.parent.keyboard.initialize();
+
+# setBaseOptions: (argument) ->
+#   # Should this be done when the registry is loaded and the default settings are loaded in?
+#   # load default settings
+#   initialize.parent.proc().json "configs/base.json", (data) ->
+#     @callback = (data) ->
+#       initialize.registry.register "characters", data
+#       count = initialize.get("characters")
+#       count--
+#       if count is 0
+#         initialize.upsert "characters", true
+#       else
+#         initialize.upsert "characters", count
+#       return
+#     initialize.registry.register "defaults", data
+#     initialize.upsert "defaultOptions", true
+#     # initialize.upsert("characters", 0); character count
+#     # load default characters
+#     for i of data.characters
+#       name = data.characters[i]
+#       initialize.parent.proc().JSON "characters/" + name + "/character.json", @callback
+#     return
+#   return
+
+# checkLoading: (toCheck) ->
+#   status = true
+#   for i of toCheck
+#     item = toCheck[i]
+#     status = false  if item isnt true
+#   status
 
 ###
 "isDevMode": queryString()['dev'] || false,
