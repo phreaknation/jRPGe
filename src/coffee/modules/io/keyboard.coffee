@@ -1,7 +1,6 @@
 class keyboard
   constructor: (@name) ->
     self = this
-    @_hasKeyPressed = false
     @_keyWait = 20
     @_lookup =
       8: "backspace"
@@ -83,14 +82,12 @@ class keyboard
       220: "pipe"
       221: "right-bracket"
       222: "quote"
-    @_pressed = {}
     @_actions = {}
     @_binds = {}
     self
   setupListeners: () ->
     self = this
     document.addEventListener "keydown", ((event) ->
-      #event.which
       self.setKey event.which, true
       return
     ), false
@@ -105,7 +102,22 @@ class keyboard
   bindKey: (@keyID, @action) ->
     self = this
     if @keyID isnt undefined
-      self._binds[@keyID] = @action
+      self._binds[action] =
+        name: @keyID
+        action: @action
+        pressed: false
+        timePressed: 0
+        clearPressed: ->
+          setTimeout (->
+            self.setKey @keyID, false
+            return
+          ), self._keyWait
+  bindsLookup: (@keyID) ->
+    self = this
+    binds = []
+    for name, key of self._binds
+      binds.push(key)  if self._lookup[@keyID] is key.name
+    return binds
   getKey: (@keyID) ->
     self = this
     key = self._lookup[@keyID]
@@ -122,44 +134,38 @@ class keyboard
   setKey: (@keyID, @mode) ->
     self = this
     return false  if @keyID is undefined or @keyID is undefined
-    self._pressed[@key] = mode if self.is(@keyID) isnt mode
+    keys = self.bindsLookup(@keyID)
+    if keys.length isnt 0
+      for key, index in keys
+        if key.pressed isnt @mode
+          if @mode is true
+            key.timePressed = Math.round(performance.now())
+          else
+            key.clearPressed()
+          key.pressed = @mode
     return
-  is: (@keyID) ->
+  isPressed: (@name) ->
     self = this
-    return false  if @keyID is undefined
-    self._pressed[@keyID] = false  if self._pressed[@keyID] is undefined
-    self._pressed[@keyID]
+    return false  if @name is undefined
+    if self._binds[@name] isnt undefined
+      self._binds[@name].pressed = false  if self._binds[@name].pressed is undefined
+      self._binds[@name].pressed
+    else
+      false
   # now we want to set up monitoring of the key to turn it off. Needs to be
   # expanded to have pressed state not turning it off if depresed
   monitorKeys: () ->
     self = this
-    for keyID of self._pressed
-      val = self._pressed[keyID]
-      if val is true
-        if self.is(keyID) is true
-          self.triggerKey keyID
-          setTimeout (->
-            self._hasKeyPressed = false
-            return
-          ), self._keyWait
-        else
-          self.setKey keyID, false
-  triggerKey: (@keyID) -> # trigger currently is being fired in a loop.
+    for bind, key of self._binds
+      continue  if bind is undefined and bind is 'undefined'
+      if key.pressed is true
+        self.triggerKey key
+    return
+  triggerKey: (@key) -> # trigger currently is being fired in a loop.
     self = this
-    # only trigger the key if it is not being pressed
-    if self._hasKeyPressed is false
-      # console.log self._hasKeyPressed
-      # set the key to be pressed
-      self._hasKeyPressed = true
-      # get the binding for the key as a key has one binding, but a binding can
-      # have several keys
-      bind = self._binds[@keyID]
-      # get the action for the binding as a binding can have one action but an
-      # action can be bound by several bindings
-      action = self._actions[bind]  if bind isnt undefined
-      # now we trigger the action
-      # console.log "blue"
-      action()  if action isnt undefined
+    if key.action isnt undefined
+      self._actions[key.action]()
+    key.clearPressed()
 module.exports = keyboard
 
 # if RPG.fn.keyboard.is(RPG.fn.actions.left)
