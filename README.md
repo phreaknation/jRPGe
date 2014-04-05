@@ -38,9 +38,9 @@ Build RPG Engine
 
 ### Include into you game
 #### minified
-> <script src="path/to/rpg.min.js"></script>
-## development
-> <script src="path/to/rpg.dev.js"></script>
+    <script src="path/to/rpg.min.js"></script>
+#### development
+    <script src="path/to/rpg.dev.js"></script>
 
 
 ### Current Features
@@ -73,7 +73,7 @@ Currently under heavy redesign so all current features have been shifted as ther
 
 ### Planned Tools
 ---------------------------------------
-* Character
+* Character Generator
 * Resource Manager
 * TMX Map Converter
 * Database Manager

@@ -1,8 +1,8 @@
 {
+  "private": true,
   "name": "rpgengine",
   "version": "0.0.001",
   "author": "Joel Dies",
-  "private": true,
   "devDependencies": {
     "gulp": "latest",
     "gulp-clean": "latest",
