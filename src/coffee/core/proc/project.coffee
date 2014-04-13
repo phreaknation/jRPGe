@@ -17,7 +17,7 @@ class project
   inputMapping: (@mapping, @io) ->
     for device, map of @mapping
       if @io[device] isnt undefined
-        console.log "Device: " + device
+        RPG.utilities.debug.log("Device: " + device, "info")
         for action, key of map
           if @io[device].bindKey isnt undefined
             @io[device].bindKey(key, action)

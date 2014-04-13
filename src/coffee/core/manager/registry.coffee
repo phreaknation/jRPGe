@@ -24,7 +24,8 @@ class registry
     self = this
     for key of self._storage
       store[key] = self._storage[key]
-      console.log store[key]  if isVerbose
+
+      RPG.utilities.debug.log(store[key], "info")  if isVerbose
     store
   register: (@key, @value, @type = null, @overwrite = true) ->
     self = this

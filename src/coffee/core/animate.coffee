@@ -22,14 +22,13 @@ class animate
   run: (@stage, @renderer, @preRender, @postRender) ->
     self = this
     if @stage is undefined
-      console.log "Stage has failed"
+      RPG.utilities.debug.log("Stage has failed", "error")
       return false
     else if @renderer is undefined
-      console.log "Renderer has failed"
+      RPG.utilities.debug.log("Renderer has failed", "error")
       return false
     if self._isStarted is true
       # Do time stuff
-      # console.log(oRPG.utilities.timex.getTimePast(true));
       @preRender()  if @preRender isnt undefined
       for key, obj of self._preHooks
         if typeof obj is 'function'
