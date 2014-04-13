@@ -1,13 +1,15 @@
 window.RPG = class RPG
-  constructor:   ->
-    self = this
-
-    # check to see if we already have RPG and return created object if we do
-    return window.RPG._instance  if window.RPG and window.RPG._instance
-    # create an instance of ourselves for future reference.
-    @._instance = self
-
-    self
+  constructor: () ->
+      self = this
+      # check to see if we already have RPG and return created object if we do
+      return window.RPG._instance    if window.RPG and window.RPG._instance
+      # create an instance of ourselves for future reference.
+      @._instance = self
+      self._verbose = arguments[0]['verbose']|| false
+      if self._verbose
+        console.info "Loaded RPG"
+      window.RPG = self
+      self
 
   # extend an object with another object
   @extend = () ->
@@ -53,6 +55,6 @@ RPG::entity = RPG.load require("./modules/entity")
 RPG::manager = RPG.extend RPG::manager, RPG.load(require("./modules/manager"))
 
 #objects
-#    characters
-#    npcs
+#        characters
+#        npcs
 #
