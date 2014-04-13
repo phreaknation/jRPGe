@@ -21,9 +21,17 @@ jRPG Engine is an open source project for creating Canvas/WebGL (j)RPG styled ga
 
 RPG Engine External Requirements
 --------------------------------------
-1. [NodeJS](http://www.nodejs.org/)
-2. [CoffeeScript](http://www.coffeescript.org/)
-3. [PixiJS](http://www.pixijs.com/)
+1.  [NodeJS](http://www.nodejs.org/)
+2.  [CoffeeScript](http://www.coffeescript.org/)
+3.  [PixiJS](http://www.pixijs.com/)
+
+Build TweenJS with TickerJS for tweening
+--------------------------------------
+1.  Download the ticker file here: https://github.com/CreateJS/EaselJS/tree/master/src/easeljs/utils/Ticker.js
+2.  Download the TweenJS source here: https://github.com/CreateJS/TweenJS
+3.  Copy Ticker.js in src/tweenjs
+4.  Add "../src/tweenjs/Ticker.js", right after "../src/createjs/events/EventDispatcher.js", in build/config.json
+5.  Run grunt build
 
 Build RPG Engine
 --------------------------------------
@@ -41,7 +49,6 @@ Build RPG Engine
     <script src="path/to/rpg.min.js"></script>
 #### development
     <script src="path/to/rpg.dev.js"></script>
-
 
 ### Current Features
 ---------------------------------------
