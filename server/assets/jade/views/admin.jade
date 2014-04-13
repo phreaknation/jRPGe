@@ -1,11 +1,9 @@
 extend ../templates/default
-//block nav
-//  include ../blocks/nav.jade
+block title
+  title Admin page
 block styles
 block content
-  //include ../blocks/notifications.jade
   .row
     h4 Admin
     span Page name: #{name}
 block scripts
-  script(src="/assets/js/index.js")

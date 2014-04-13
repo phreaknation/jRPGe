@@ -5,7 +5,7 @@
   "title": "jRPG Engine",
   "description": "Japanese Style RPG Engine made with Pixijs for the web browser",
   "version": "0.0.001",
-  "main": "server/app.js",
+  "main": "./server.js",
   "homepage": "",
   "author": {
     "name": "Joel Dies",
@@ -50,6 +50,7 @@
     "node": "latest"
   },
   "scripts": {
-    "start": "node server/app.js"
+    "start": "node ./server.js",
+    "startMon": "nodemon ./server.js"
   }
 }

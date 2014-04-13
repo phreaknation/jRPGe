@@ -1,11 +1,5 @@
-/* https config
-fs = require('fs')
-options = {
-        key: fs.readFileSync('./key'),
-        cert: fs.readFileSync('./cert')
-}
-*/
-var path = require('path'),
+var fs = require('fs'),
+    path = require('path'),
     async = require('async'),
     http = require('http'),
     url = require('url'),
@@ -14,11 +8,11 @@ var path = require('path'),
     jade = require('jade'),
     app = express(),
     server = http.createServer(app),
-    io = socketio.listen(server),
+    io = socketio.listen(server, { log: false }),
 
     resourceDirectory = '../client/',
-    serverPort = process.env.PORT || 8001,
-    serverIP = process.env.IP || '0.0.0.0',
+    serverPort = parseInt(process.env.PORT) || 8001,
+    serverIP = process.env.HOST || process.env.IP || '0.0.0.0',
     content_types = {
         "js": "application/javascript",
         "bmp": "image/bmp",
@@ -39,6 +33,9 @@ var allowCrossDomain = function(req, res, next) {
     next();
 };
 
+io.set('transports',['xhr-polling']);
+io.set('log level', 1);
+
 app.set('views', __dirname + '/assets/jade/views');
 app.set('view engine', 'jade');
 app.use(express.static(path.resolve(__dirname, resourceDirectory)));
@@ -58,29 +55,43 @@ app.configure(function() {
     //
 });
 */
-console.log('[SERVER] Setting up application options');
 
-// pm.once('open', function callback () {
-//         // yay!
-//         console.log('[SERVER] PM Database is opened!');
-// });
+console.log('[SERVER] Setting up application options');
 
 function getExtension(filename) {
     var ext = path.extname(filename || '').split('.');
     return ext[ext.length - 1];
 }
 
-app.get('/:page?/*', function(req, res) {
-    var pageName = 'index';
+function readJSON(file, callback) {
+    fs.readFile(file, 'utf8', function (err, data) {
+        if (err) {
+            console.log('Error: ' + err);
+        }
+        callback(JSON.parse(data));
+    });
+}
+
+function writeJSON(file, json, callback) {
+    fs.writeFile(file, JSON.stringify(json), function (err,data) {
+        if (err) {
+            return console.log(err);
+        }
+        callback()
+    });
+}
+
+app.get('/:pageName?', function(req, res) {
+    var pageName = req.params.pageName || 'index';
     var url_parts = url.parse(req.url, true);
     var query = url_parts.query;
-    console.log(url_parts);
 
-    if (req.param.page) {
-        pageName = req.param.page;
+    if (req.params.page) {
+        pageName = req.params.page;
     } else if (url_parts.pathname !== '/') {
-        pageName = url_parts.pathname;
+        pageName = url_parts.pathname.slice(1);
     }
+    console.log(pageName, req.params)
     res.render(pageName, {}, function(err, html) {
         if (err) {
             var rendered = {
@@ -104,76 +115,34 @@ app.get('/:page?/*', function(req, res) {
                 res.status(404).send('File Not Found');
             }
         } else {
-            /*
-            for (i in res) {
-                if (typeof res[i] == "string") {
-                    console.log(res[i])
-                }
-            }*/
-            //console.log(res.req.url)
             res.set('Content-Type', content_types[getExtension(res.req.url)]);
             return res.end(html);
         }
     });
 });
 
-var messages = [];
-var sockets = [];
-
 io.on('connection', function(socket) {
-    messages.forEach(function(data) {
-        socket.emit('message', data);
+    readJSON(__dirname + '/assets/json/news.json', function(data) {
+        socket.emit("news", data)
     });
 
-    sockets.push(socket);
-
-    socket.on('disconnect', function() {
-        sockets.splice(sockets.indexOf(socket), 1);
-        updateRoster();
+    readJSON(__dirname + '/assets/json/status.json', function(data) {
+        socket.emit("status", data)
     });
 
-    socket.on('message', function(msg) {
-        var text = String(msg || '');
-
-        if (!text)
-            return;
-
-        socket.get('name', function(err, name) {
-            var data = {
-                name: name,
-                text: text
-            };
-
-            broadcast('message', data);
-            messages.push(data);
-        });
+    readJSON(__dirname + '/assets/json/site.json', function(data) {
+        socket.emit("setVisitorCount", data.visitors.count);
     });
 
-    socket.on('identify', function(name) {
-        socket.set('name', String(name || 'Anonymous'), function(err) {
-            updateRoster();
+    socket.on('setVisitorCookie', function() {
+        readJSON(__dirname + '/assets/json/site.json', function(data) {
+            data.visitors.count++;
+            writeJSON(__dirname + '/assets/json/site.json', data, function() {
+                socket.emit("setVisitorCookie");
+            });
         });
     });
 });
-
-function updateRoster() {
-    async.map(
-        sockets,
-        function(socket, callback) {
-            socket.get('name', callback);
-        },
-        function(err, names) {
-            broadcast('roster', names);
-        }
-    );
-}
-
-function broadcast(event, data) {
-    sockets.forEach(function(socket) {
-        socket.emit(event, data);
-    });
-}
-
 server.listen(serverPort, serverIP, function() {
     var addr = server.address();
     console.log('[SERVER] Listening at: ' + addr.address + ":" + addr.port);
