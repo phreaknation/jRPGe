@@ -37,9 +37,14 @@ class animate
         self.run stage, renderer, preRender, postRender
         return
       Tween.runTweens()
-      @postRender()  if @postRender isnt undefined
+      for key, obj of self._postHooks
+        if typeof obj is 'function'
+          obj()
       @renderer.render(@stage)
     else
+      for key, obj of self._preHooks
+        if typeof obj is 'function'
+          obj()
       requestAnimFrame ->
         self.run stage, renderer, preRender, postRender
         return
