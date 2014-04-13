@@ -20,7 +20,12 @@ class project
         RPG.utilities.debug.log("Device: " + device, "info")
         for action, key of map
           if @io[device].bindKey isnt undefined
-            @io[device].bindKey(key, action)
+            # console.log key, action
+            if typeof key isnt 'string'
+              for index, k of key
+                @io[device].bindKey(@io[device].getKeyID(k), action)
+            else
+              @io[device].bindKey(@io[device].getKeyID(key), action)
           continue
         continue
     return

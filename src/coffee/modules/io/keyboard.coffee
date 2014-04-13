@@ -95,6 +95,9 @@ class keyboard
       self.setKey event.which, false
       return
     ), false
+  actionLookup: (@action) ->
+
+    return false
   bindAction: (@action, @binding) ->
     self = this
     if @action isnt undefined
@@ -102,8 +105,9 @@ class keyboard
   bindKey: (@keyID, @action) ->
     self = this
     if @keyID isnt undefined
-      self._binds[action] =
-        name: @keyID
+      self._binds[self._lookup[@keyID]+"_"+@action] =
+        id: @keyID
+        name: self._lookup[@keyID]
         action: @action
         pressed: false
         timePressed: 0
@@ -112,11 +116,13 @@ class keyboard
             self.setKey @keyID, false
             return
           ), self._keyWait
-  bindsLookup: (@keyID) ->
+  bindsLookup: (@keyID, @action) ->
     self = this
     binds = []
     for name, key of self._binds
-      binds.push(key)  if self._lookup[@keyID] is key.name
+      if self._lookup[@keyID] is key.name
+        if @action is undefined or name.indexOf(@action) isnt -1
+          binds.push(key)
     return binds
   getKey: (@keyID) ->
     self = this
@@ -147,11 +153,11 @@ class keyboard
   isPressed: (@name) ->
     self = this
     return false  if @name is undefined
-    if self._binds[@name] isnt undefined
-      self._binds[@name].pressed = false  if self._binds[@name].pressed is undefined
-      self._binds[@name].pressed
-    else
-      false
+    for index, bind of self._binds
+      if index.indexOf(@name) isnt -1
+        self._binds[index].pressed = false  if self._binds[index].pressed is undefined
+        return self._binds[index].pressed
+    return false
   # now we want to set up monitoring of the key to turn it off. Needs to be
   # expanded to have pressed state not turning it off if depresed
   monitorKeys: () ->
@@ -168,3 +174,4 @@ class keyboard
     key.clearPressed()
 module.exports = keyboard
 
+# TODO: Need to allow multiple keys to trigger an action. Currently many actions can be only triggered by one key. Currently N:1, needs to be N:N
