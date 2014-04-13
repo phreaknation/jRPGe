@@ -56,3 +56,6 @@ build
 
 npm-debug.log
 node_modules
+*.project
+*.sublime-project
+*.sublime-workspace
