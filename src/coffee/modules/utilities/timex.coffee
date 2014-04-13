@@ -4,7 +4,6 @@ class timex
     @_timeStarted = performance.now()
     @_timeCurrent = performance.now()
     self
-
   getTimeStarted: () ->
     self = this
     return self._timeStarted

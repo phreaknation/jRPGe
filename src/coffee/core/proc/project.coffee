@@ -23,7 +23,5 @@ class project
             @io[device].bindKey(key, action)
           continue
         continue
-    # if @mapping.keyboard
-      # oRPG.io.keyboard.bindKey(65, "sampleAction");
     return
 module.exports = project

@@ -168,22 +168,3 @@ class keyboard
     key.clearPressed()
 module.exports = keyboard
 
-# if RPG.fn.keyboard.is(RPG.fn.actions.left)
-#   if RPG.fn.keyboard.is(RPG.fn.actions.sprint)
-#     if RPG.fn.checkCollision(player,
-#       x: -1
-#       y: 0
-#     )
-#       RPG.fn.player.walk "west", true
-#     else
-#       RPG.fn.player.face "west"
-#   else
-#     if RPG.fn.checkCollision(player,
-#       x: -1
-#       y: 0
-#     )
-#       RPG.fn.player.walk "west", false
-#     else
-#       RPG.fn.player.face "west"
-#   keyPressed = true
-# return
